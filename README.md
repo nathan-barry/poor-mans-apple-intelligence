@@ -1,14 +1,14 @@
 # Poor Man's Apple Intelligence
 
-Shortcuts are super powerful! By giving Claude (or any other model supporting MCPs) access to one predefined massive Apple Shortcut (which is a bunch of if statements doing different actions), we can let Claude do some things that Apple Intelligence can (and some things that it can't!)
+This is a Python-based Model Context Protocol (MCP) server that exposes a suite of tools which allows Claude (or any other model supporting MCPs) to do things that Apple Intelligence can (and some things that it can't!) via Shortcuts. Each tool corresponds to a function in the given shortcut (e.g., sending messages, making calls, managing calendar events). Under the hood, the server builds a four-line payload, pipes it into the `shortcuts` CLI, and returns the shortcut’s response which is then given back to Claude.
 
 ![Demo](demo.gif)
 
 ### Complete list of features:
 
-* Send text messages
-* Call someone
-* Facetime someone
+* Send text messages via iMessage
+* Call a contact
+* Facetime a contact
 * Send an email
 * Retrieve all contacts (context for Claude)
 * List past calendar events (context for Claude)
