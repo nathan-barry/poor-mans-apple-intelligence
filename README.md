@@ -2,7 +2,7 @@
 
 Shortcuts are super powerful! By giving Claude (or any other model supporting MCPs) access to one predefined massive Apple Shortcut (which is a bunch of if statements doing different actions), we can let Claude do some things that Apple Intelligence can (and some things that it can't!)
 
-Each tool corresponds to a function in the given shortcut (e.g., sending messages, making calls, managing calendar events). Under the hood, the server builds a four-line payload, pipes it into the `shortcuts` CLI, and returns the shortcut’s response which is then given back to Claude for further processing.
+![Demo](demo.gif)
 
 ### Complete list of features:
 
