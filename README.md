@@ -1,8 +1,10 @@
-# Poor Man's Apple Intelligence
+# The Poor Man's Apple Intelligence
 
-This is a Python-based Model Context Protocol (MCP) server that exposes a suite of tools which allows Claude (or any other model supporting MCPs) to do things that Apple Intelligence can (and some things that it can't!) via Shortcuts. Each tool corresponds to a function in the given shortcut (e.g., sending messages, making calls, managing calendar events). Under the hood, the server builds a four-line payload, pipes it into the `shortcuts` CLI, and returns the shortcut’s response which is then given back to Claude.
+This is a Python-based Model Context Protocol (MCP) server that exposes a suite of tools which allows Claude (or any other model supporting MCPs) to do things that Apple Intelligence can (and some things that it can't!) via Shortcuts.
 
 ![Demo](demo.gif)
+
+Each tool corresponds to a function in the given shortcut (e.g., sending messages, making calls, managing calendar events). Under the hood, the server builds a four-line payload, pipes it into the `shortcuts` CLI, and returns the shortcut’s response which is then given back to Claude.
 
 ### Complete list of features:
 
