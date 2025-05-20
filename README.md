@@ -4,6 +4,25 @@ Shortcuts are super powerful! By giving Claude (or any other model supporting MC
 
 Each tool corresponds to a function in the given shortcut (e.g., sending messages, making calls, managing calendar events). Under the hood, the server builds a four-line payload, pipes it into the `shortcuts` CLI, and returns the shortcut’s response which is then given back to Claude for further processing.
 
+Complete list of features:
+
+* Send text messages
+* Call someone
+* Facetime someone
+* Send an email
+* Retrieve all contacts (context for Claude)
+* List past calendar events (context for Claude)
+* List future calendar events (context for Claude)
+* List calendar events today (context for Claude)
+* Create a new calendar event
+* List all pending reminders (context for Claude)
+* Create a reminder
+* Fetch the current weather
+* Fetch the weather forecast
+* Set an alarm at a specified time
+* Delete an existing alarm
+* List all configured alarms
+
 ---
 
 ## Table of Contents
@@ -59,11 +78,34 @@ Each tool corresponds to a function in the given shortcut (e.g., sending message
 
 ---
 
-## Server Structure
+## Integrating with Claude for Desktop
 
+In `claude_desktop_config.json` (find this by following [this guide](https://modelcontextprotocol.io/quickstart/user)):
+
+```json
+{
+  "mcpServers": {
+    "shortcutRunner": {
+      "command": "bash",
+      "args": [
+        "-lc",
+        "cd /path/to/poor-mans-apple-intelligence && uv run mcp run server.py"
+      ]
+    }
+  }
+}
+```
+
+Restart Claude, click the 🔨 icon, and pick `shortcutRunner`. It will ask for permission before each action.
+
+---
+
+## How It Works
+
+### Server Structure
 This server defines:
 
-### Command Dataclass
+#### Command Dataclass
 
 ```python
 @dataclass
@@ -79,7 +121,7 @@ class Command:
 
 Encapsulates the four fields and provides a `.payload()` method that joins them with newlines.
 
-### `run_command` Helper
+#### `run_command` Helper
 
 ```python
 def run_command(cmd: Command) -> str:
@@ -97,7 +139,7 @@ def run_command(cmd: Command) -> str:
 
 Handles the `subprocess` invocation once, returning either the shortcut’s `stdout` (or `OK` if empty) or the error text.
 
-### Exposed Tools
+#### Exposed Tools
 
 Each Shortcut action is exposed as an `@mcp.tool()` with a clear signature. Example:
 
@@ -106,29 +148,6 @@ Each Shortcut action is exposed as an `@mcp.tool()` with a clear signature. Exam
 def sendMessage(name: str, message: str) -> str:
     return run_command(Command("sendMessage", name, message))
 ```
-
-Complete list:
-
-* `sendMessage(name, message)`
-* `phoneCall(name)`
-* `facetimeCall(name)`
-* `sendEmail(name, message, subject)`
-* `listContacts()`
-* `listPastCalendarEvents(number, unit)`
-* `listFutureCalendarEvents(number, unit)`
-* `listTodayCalendarEvents()`
-* `createCalendarEvent(title, start_time, end_time)`
-* `listFutureReminders()`
-* `addReminder(reminder_name, list_name, alert)`
-* `getCurrentWeather()`
-* `getWeatherForecast()`
-* `setAlarm(alarm_name, time)`
-* `deleteAlarm(alarm_name)`
-* `listAlarms()`
-
----
-
-## How It Works
 
 ### Building the Payload
 
@@ -165,34 +184,13 @@ In the Apple Shortcut named **`switch`**, the first action should be to:
 ---
 
 ## Running Locally
+In case you want to for some other purpose.
 
 ```bash
 uv run mcp dev server.py
 # (or)
 uv run mcp run server.py
 ```
-
----
-
-## Integrating with Claude for Desktop
-
-In `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "shortcutRunner": {
-      "command": "bash",
-      "args": [
-        "-lc",
-        "cd /path/to/poor-mans-apple-intelligence && uv run mcp run server.py"
-      ]
-    }
-  }
-}
-```
-
-Restart Claude, click the 🔨 icon, and pick `shortcutRunner`. It will ask for permission before each action.
 
 ---
 
