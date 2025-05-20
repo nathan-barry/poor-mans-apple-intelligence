@@ -1,10 +1,10 @@
 # Poor Man's Apple Intelligence
 
-Shortcuts are super powerful! By giving Claude (or any other model supporting MCPs) access to one massive Apple Shortcut (which is a bunch of if statements doing different actions), we can let Claude have a decent bit of the features that Apple Intelligence is supposed to have.
+Shortcuts are super powerful! By giving Claude (or any other model supporting MCPs) access to one predefined massive Apple Shortcut (which is a bunch of if statements doing different actions), we can let Claude do some things that Apple Intelligence can (and some things that it can't!)
 
 Each tool corresponds to a function in the given shortcut (e.g., sending messages, making calls, managing calendar events). Under the hood, the server builds a four-line payload, pipes it into the `shortcuts` CLI, and returns the shortcut’s response which is then given back to Claude for further processing.
 
-Complete list of features:
+### Complete list of features:
 
 * Send text messages
 * Call someone
@@ -29,18 +29,13 @@ Complete list of features:
 
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
-* [Server Structure](#server-structure)
-
-  * [Command Dataclass](#command-dataclass)
-  * [run\_command Helper](#run_command-helper)
-  * [Exposed Tools](#exposed-tools)
+* [Integrating with Claude for Desktop](#integrating-with-claude-for-desktop)
 * [How It Works](#how-it-works)
-
+  * [Server Structure](#server-structure)
   * [Building the Payload](#building-the-payload)
   * [Piping into `shortcuts` CLI](#piping-into-shortcuts-cli)
   * [Shortcut-side Splitting](#shortcut-side-splitting)
 * [Running Locally](#running-locally)
-* [Integrating with Claude for Desktop](#integrating-with-claude-for-desktop)
 * [License](#license)
 
 ---
