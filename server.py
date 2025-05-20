@@ -10,9 +10,9 @@ mcp = FastMCP("ShortcutRunner")
 @dataclass
 class Command:
     function: str
-    arg_1: str = ""
-    arg_2: str = ""
-    arg_3: str = ""
+    arg_1: str = " "
+    arg_2: str = " "
+    arg_3: str = " "
 
     def payload(self) -> str:
         """
@@ -91,18 +91,13 @@ def createCalendarEvent(title: str, start_time: str, end_time: str) -> str:
 
 
 @mcp.tool()
-def listFutureReminders() -> str:
-    return run_command(Command("listFutureReminders"))
+def listReminders() -> str:
+    return run_command(Command("listReminders"))
 
 
 @mcp.tool()
-def addReminder(reminder_name: str, list_name: str, alert: str) -> str:
-    return run_command(Command("addReminder", reminder_name, list_name, alert))
-
-
-@mcp.tool()
-def removeReminder(reminder_name: str) -> str:
-    return run_command(Command("removeReminder", reminder_name))
+def addReminder(reminder_name: str, list_name: str) -> str:
+    return run_command(Command("addReminder", reminder_name, list_name))
 
 
 @mcp.tool()
