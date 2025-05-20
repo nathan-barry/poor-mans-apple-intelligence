@@ -50,6 +50,13 @@ Each tool corresponds to a function in the given shortcut (e.g., sending message
    uv sync
    ```
 
+3. **Add the two shortcuts**:
+
+   ```bash
+   open getcontact.shortcut # helper function
+   open switch.shortcut     # meat and potatoes
+   ```
+
 ---
 
 ## Server Structure
@@ -113,7 +120,6 @@ Complete list:
 * `createCalendarEvent(title, start_time, end_time)`
 * `listFutureReminders()`
 * `addReminder(reminder_name, list_name, alert)`
-* `removeReminder(reminder_name)`
 * `getCurrentWeather()`
 * `getWeatherForecast()`
 * `setAlarm(alarm_name, time)`
